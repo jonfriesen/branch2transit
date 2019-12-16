@@ -2,4 +2,4 @@
 
 Vancity branch number to transit number converter
 
-View here: https://mnpenner.github.io/branch2transit/
+View here: https://vancouver-city-savings.github.io/branch2transit/
