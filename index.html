@@ -1,567 +1,601 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Branch to Transit #</title>
-	<style>
-		* {
-			font-family: sans-serif;
-		}
-		input, .arrow {
-			font-size: 3em;
-		}
-		#branch {
-			width: 2em;
-		}
-		#transit {
-			width: 3.5em;
-		}
-		table {
-			margin: 200px auto 0 auto;
-		}
-		#location-outter {
-			text-align: center;
-		}
-		#location-inner {
-			display: inline-block;
-			text-align: left;
-		}
-		#location-inner span {
-			display: block;
-			margin-bottom: .1em;
-		}
-		#location-inner h2 {
-			font-size: 1.2em;
-			margin-bottom: .3em;
-		}
-        .contact {
+    <title>Branch to Transit #</title>
+    <style>
+        * {
+            font-family: sans-serif;
+        }
+
+        input, .arrow {
+            font-size: 3em;
+        }
+
+        #branch {
+            width: 2em;
+        }
+
+        #transit {
+            width: 3.5em;
+        }
+
+        table {
+            margin: 200px auto 0 auto;
+        }
+
+        #location-outter {
             text-align: center;
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            margin: 0;
-            padding: 0;
-            color: #888;
         }
-        .contact a {
-            color: #88c;
+
+        #location-inner {
+            display: inline-block;
+            text-align: left;
         }
-	</style>
-	<script src="https://code.jquery.com/jquery-2.2.4.min.js"
-			  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-			  crossorigin="anonymous"></script>
-	<script type="text/javascript">
-	var branches = [
-		{
-			name: "Vancity Centre Community Branch",
-			branch: 1,
-			transit: "16110",
-			address1: "100 183 Terminal Ave",
-			address2: "Vancouver, BC  V6A 4G2"
-		},
-		{
-			name: "Victoria Drive Community Branch",
-			branch: 2,
-			transit: "16120",
-			address1: "5590 Victoria Drive",
-			address2: "Vancouver, BC  V5P 3W1"
-		},
-		{
-			name: "Hastings Community Branch",
-			branch: 3,
-			transit: "16130",
-			address1: "2510 East Hastings Street",
-			address2: "Vancouver, BC  V5K 1Z3"
-		},
-		{
-			name: "Kitsilano Community Branch",
-			branch: 4,
-			transit: "16140",
-			address1: "3395 West Broadway",
-			address2: "Vancouver, BC  V6R 2B1"
-		},
-		{
-			name: "West Vancouver Community Branch",
-			branch: 5,
-			transit: "16150",
-			address1: "1402 Marine Drive",
-			address2: "West Vancouver, BC  V7T 1B7"
-		},
-		{
-			name: "North Burnaby Community Branch",
-			branch: 6,
-			transit: "16160",
-			address1: "4302 Hastings Street",
-			address2: "Burnaby, BC  V5C 2J9"
-		},
-		{
-			name: "Fraser Street Community Branch",
-			branch: 7,
-			transit: "16170",
-			address1: "6288 Fraser Street",
-			address2: "Vancouver, BC  V5W 3A1"
-		},
-		{
-			name: "Fairview Community Branch",
-			branch: 8,
-			transit: "16180",
-			address1: "501 West 10th Avenue",
-			address2: "Vancouver, BC  V5Z 1K9"
-		},
-		{
-			name: "Main Street Community Branch",
-			branch: 9,
-			transit: "16190",
-			address1: "4205 Main Street",
-			address2: "Vancouver, BC  V5V 3P8"
-		},
-		{
-			name: "Downtown Community Branch",
-			branch: 10,
-			transit: "16300",
-			address1: "898 West Pender Street",
-			address2: "Vancouver, BC  V6C 1J8"
-		},
-		{
-			name: "4th Ave Community Branch",
-			branch: 11,
-			transit: "16310",
-			address1: "2233 West 4th Avenue",
-			address2: "Vancouver, BC  V6K 1N9"
-		},
-		{
-			name: "Commercial Drive Community Branch",
-			branch: 12,
-			transit: "16320",
-			address1: "1675 Commercial Drive",
-			address2: "Vancouver, BC  V5L 3Y3"
-		},
-		{
-			name: "Collingwood Community Branch",
-			branch: 13,
-			transit: "16330",
-			address1: "3305 Kingsway",
-			address2: "Vancouver, BC  V5R 5K6"
-		},
-		{
-			name: "Marpole Community Branch",
-			branch: 14,
-			transit: "16340",
-			address1: "8615 Granville Street",
-			address2: "Vancouver, BC  V6P 5A2"
-		},
-		{
-			name: "Kerrisdale Community Branch",
-			branch: 15,
-			transit: "16350",
-			address1: "2380 West 41st Avenue",
-			address2: "Vancouver, BC  V6M 2A4"
-		},
-		{
-			name: "North Road Community Branch",
-			branch: 16,
-			transit: "16360",
-			address1: "3977 North Road",
-			address2: "Burnaby, BC  V3J 1S2"
-		},
-		{
-			name: "South Burnaby Community Branch",
-			branch: 17,
-			transit: "16370",
-			address1: "5064 Kingsway",
-			address2: "Burnaby, BC  V5H 2E7"
-		},
-		{
-			name: "Pinetree Community Branch",
-			branch: 18,
-			transit: "16380",
-			address1: "20 2991 Lougheed Hwy",
-			address2: "Coquitlam, BC  V3B 6J6"
-		},
-		{
-			name: "North Delta Community Branch",
-			branch: 19,
-			transit: "16390",
-			address1: "7211 120th Street",
-			address2: "Delta, BC  V4C 6P5"
-		},
-		{
-			name: "North Vancouver Community Branch",
-			branch: 21,
-			transit: "16410",
-			address1: "1290 Marine Drive",
-			address2: "North Vancouver, BC  V7P 1T2"
-		},
-		{
-			name: "Point Grey Community Branch",
-			branch: 22,
-			transit: "16420",
-			address1: "4545 West 10th Avenue",
-			address2: "Vancouver, BC  V6R 4N2"
-		},
-		{
-			name: "Langley Community Branch",
-			branch: 23,
-			transit: "16430",
-			address1: "100 20055 Willowbrook Dr",
-			address2: "Langley, BC  V2Y 2T5"
-		},
-		{
-			name: "Semiahmoo Community Branch",
-			branch: 25,
-			transit: "16450",
-			address1: "104 1790 152nd St",
-			address2: "Surrey, BC  V4A 7Z7"
-		},
-		{
-			name: "Richmond Community Branch",
-			branch: 26,
-			transit: "16460",
-			address1: "5900 No.3 Road",
-			address2: "Richmond, BC  V6X 3P7"
-		},
-		{
-			name: "Newton Community Branch",
-			branch: 27,
-			transit: "16470",
-			address1: "7555 King George Blvd",
-			address2: "Surrey, BC  V3W 5A8"
-		},
-		{
-			name: "Chinatown Community Branch",
-			branch: 28,
-			transit: "16480",
-			address1: "188 East Pender Street",
-			address2: "Vancouver, BC  V6A 1T3"
-		},
-		{
-			name: "Maple Ridge Community Branch",
-			branch: 29,
-			transit: "16490",
-			address1: "22824 Lougheed Hwy",
-			address2: "Maple Ridge, BC  V2X 2V6"
-		},
-		{
-			name: "Guildford Community Branch ",
-			branch: 30,
-			transit: "16500",
-			address1: "108 15175 101st Ave",
-			address2: "Surrey, BC  V3R 7Z1"
-		},
-		{
-			name: "Chilliwack Community Branch",
-			branch: 31,
-			transit: "16510",
-			address1: "45617 Luckakuck Way",
-			address2: "Chilliwack, BC  V2R 1A3"
-		},
-		{
-			name: "Surrey City Centre Community Branch",
-			branch: 32,
-			transit: "16520",
-			address1: "10293 King George Blvd",
-			address2: "Surrey, BC  V3T 2W6"
-		},
-		{
-			name: "Shaughnessy Station Community Branch",
-			branch: 33,
-			transit: "16530",
-			address1: "7100 2850 Shaughnessy St",
-			address2: "Port Coquitlam, BC  V3C 6K5"
-		},
-		{
-			name: "Abbotsford Community Branch",
-			branch: 34,
-			transit: "16540",
-			address1: "32675 South Fraser Way",
-			address2: "Abbotsford, BC  V2T 1X9"
-		},
-		{
-			name: "Station Square Community Branch",
-			branch: 35,
-			transit: "16550",
-			address1: "120A 6100 McKay Ave",
-			address2: "Burnaby, BC  V5H 4L6"
-		},
-		{
-			name: "Mission Community Branch",
-			branch: 36,
-			transit: "16560",
-			address1: "150 32555 London Ave",
-			address2: "Mission, BC  V2V 6M7"
-		},
-		{
-			name: "Oakridge Community Branch",
-			branch: 41,
-			transit: "07200",
-			address1: "5594 Cambie Street",
-			address2: "Vancouver, BC  V5Z 3Y5"
-		},
-		{
-			name: "Victoria Community Branch ",
-			branch: 42,
-			transit: "07220",
-			address1: "3075 Douglas Street",
-			address2: "Victoria, BC  V8T 4N3"
-		},
-		{
-			name: "Brentwood Community Branch",
-			branch: 43,
-			transit: "07230",
-			address1: "106 1901 Rosser Ave",
-			address2: "Burnaby, BC  V5C 6R6"
-		},
-		{
-			name: "Cedar Hills Community Branch",
-			branch: 44,
-			transit: "07240",
-			address1: "12820 96th Avenue",
-			address2: "Surrey, BC  V3V 6A8"
-		},
-		{
-			name: "Dunbar Community Branch",
-			branch: 45,
-			transit: "07250",
-			address1: "4445 Dunbar Street",
-			address2: "Vancouver, BC  V6S 2G4"
-		},
-		{
-			name: "Lynn Creek Community Branch",
-			branch: 46,
-			transit: "07260",
-			address1: "1370 Main Street",
-			address2: "North Vancouver, BC  V7J 1C6"
-		},
-		{
-			name: "West End Community Branch",
-			branch: 47,
-			transit: "07270",
-			address1: "1798 Robson Street",
-			address2: "Vancouver, BC  V6G 1C7"
-		},
-		{
-			name: "Westview Community Branch",
-			branch: 49,
-			transit: "07290",
-			address1: "712 2601 Westview Dr",
-			address2: "North Vancouver, BC  V7N 3X4"
-		},
-		{
-			name: "Pitt Meadows Community Branch",
-			branch: 50,
-			transit: "15400",
-			address1: "750 - 19800 Lougheed Highway",
-			address2: "Pitt Meadows, BC  V3Y 2W1"
-		},
-		{
-			name: "Maillardville Community Branch",
-			branch: 51,
-			transit: "15410",
-			address1: "101-969 Brunette Ave",
-			address2: "Coquitlam, BC  V3K 4L6"
-		},
-		{
-			name: "Port Moody Community Branch",
-			branch: 52,
-			transit: "15420",
-			address1: "5 - 121 Brew Street",
-			address2: "Port Moody, BC  V3H 0E2"
-		},
-		{
-			name: "North Side Community Branch",
-			branch: 53,
-			transit: "15430",
-			address1: "130 - 2325 Ottawa Street",
-			address2: "Port Coquitlam, BC  V3B 8A4"
-		},
-		{
-			name: "Walnut Grove Community Branch",
-			branch: 54,
-			transit: "15440",
-			address1: "E103 - 20159 88th Avenue",
-			address2: "Langley BC,  V1M 0A4"
-		},
-		{
-			name: "Sardis Community Branch (now Chilliwack/Branch 31)",
-			branch: 55,
-			transit: "15450",
-			address1: "45617 Luckakuck Way",
-			address2: "Chilliwack, BC  V2R 1A3"
-		},
-		{
-			name: "South Slope Community Branch",
-			branch: 56,
-			transit: "15460",
-			address1: "7384 Market Crossing",
-			address2: "Burnaby, BC  V5J 0A2"
-		},
-		{
-			name: "Lynn Valley Community Branch",
-			branch: 57,
-			transit: "15470",
-			address1: "101 - 1233 Lynn Valley Road",
-			address2: "North Vancouver, BC  V7J 2A1"
-		},
-		{
-			name: "Tsawwassen Community Branch",
-			branch: 58,
-			transit: "15480",
-			address1: "Unit D - 1215 56 Street",
-			address2: "Delta, BC  V4L 2A6"
-		},
-		{
-			name: "Royal Oak Community Branch",
-			branch: 59,
-			transit: "03210",
-			address1: "6632 Royal Oak Avenue",
-			address2: "Burnaby, BC  V5H 3P6"
-		},
-		{
-			name: "Waterfront Community Branch (now Downtown/Branch 10)",
-			branch: 60,
-			transit: "3020 ??",
-			address1: "898 West Pender Street",
-			address2: "Vancouver, BC  V6C 1J8"
-		},
-		{
-			name: "New Westminster Community Branch",
-			branch: 61,
-			transit: "23220",
-			address1: "511 Sixth Street",
-			address2: "New Westminster, BC  V3L 3B9"
-		},
-		{
-			name: "Saanich Community Branch (now Victoria/Branch 42)",
-			branch: 62,
-			transit: "23230",
-			address1: "3075 Douglas Street",
-			address2: "Victoria, BC  V8T 4N3"
-		},
-		{
-			name: "Telus Community Branch",
-			branch: 63,
-			transit: "03250",
-			address1: "6th floor, 3777 Kingsway",
-			address2: "Burnaby, BC  V5H 3Z7"
-		},
-		{
-			name: "Johnston Heights Community Branch (now Guildford/Branch 30)",
-			branch: 64,
-			transit: "23240",
-			address1: "108 15175 101st Ave",
-			address2: "Surrey, BC  V3R 7Z1"
-		},
-		{
-			name: "Blanshard Street Community Branch",
-			branch: 67,
-			transit: "02710",
-			address1: "1001 Blanshard Street",
-			address2: "Victoria, BC  V8W 2H4"
-		},
-		{
-			name: "Mount Tolmie Community Branch",
-			branch: 68,
-			transit: "02720",
-			address1: "100-1590 Cedar Hill Cross Road",
-			address2: "Victoria, BC  V8P 2P5"
-		},
-		{
-			name: "Langford Community Branch",
-			branch: 69,
-			transit: "02730",
-			address1: "100 - 800 Kelly Road",
-			address2: "Victoria, BC  V9B 5T6"
-		},
-		{
-			name: "Morgan Creek Community Branch",
-			branch: 70,
-			transit: "15490",
-			address1: "H120 - 15795 Croydon Drive",
-			address2: "Surrey, BC  V3S 2L6"
-		},
-		{
-			name: "Squamish Savings - Chieftain Centre",
-			branch: 81,
-			transit: "12110",
-			address1: "1325 Pemberton Drive",
-			address2: "Squamish, BC  V8B 0J8"
-		},
-        {
-            name: "Blundell Centre community branch",
-            branch: 88,
-            transit: "12180",
-            address1: "Unit 130 - 6020 Blundell Road",
-            address2: "Richmond BC  V7C 1H8"
+
+        #location-inner span {
+            display: block;
+            margin-bottom: .1em;
         }
-	];
 
-	function UpdateLocation(i)
-	{
-		$('#name').html(branches[i].name);
-		$('#address1').html(branches[i].address1.replace(/  /g, '&nbsp;&nbsp;'));
-		$('#address2').html(branches[i].address2.replace(/  /g, '&nbsp;&nbsp;'));
-	}
+        #location-inner h2 {
+            font-size: 1.2em;
+            margin-bottom: .3em;
+        }
 
-	$(document).ready(function() {
-		$transit = $('#transit');
-		$branch = $('#branch');
+        .github-corner:hover .octo-arm {
+            animation: octocat-wave 560ms ease-in-out
+        }
 
-		$branch.keyup(function(e) {
-			$transit.val('');
-			$('#location-inner *').text('');
-			for(var i in branches) {
-				if(branches[i].branch == parseInt($branch.val())) {
-					$transit.val(branches[i].transit);
-					UpdateLocation(i);
-					break;
-				}
-			}
-		});
+        @keyframes octocat-wave {
+            0%, 100% {
+                transform: rotate(0)
+            }
+            20%, 60% {
+                transform: rotate(-25deg)
+            }
+            40%, 80% {
+                transform: rotate(10deg)
+            }
+        }
 
-		$transit.keyup(function(e) {
-			$branch.val('');
-			$('#location-inner *').text('');
-			for(var i in branches) {
-				if(branches[i].transit == $transit.val()) {
-					$branch.val(branches[i].branch);
-					UpdateLocation(i);
-					break;
-				}
-			}
-		});
-	});
-	</script>
+        @media (max-width: 500px) {
+            .github-corner:hover .octo-arm {
+                animation: none
+            }
+
+            .github-corner .octo-arm {
+                animation: octocat-wave 560ms ease-in-out
+            }
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        var branches = [
+            {
+                name: "Vancity Centre Community Branch",
+                branch: 1,
+                transit: "16110",
+                address1: "100 183 Terminal Ave",
+                address2: "Vancouver, BC  V6A 4G2"
+            },
+            {
+                name: "Victoria Drive Community Branch",
+                branch: 2,
+                transit: "16120",
+                address1: "5590 Victoria Drive",
+                address2: "Vancouver, BC  V5P 3W1"
+            },
+            {
+                name: "Hastings Community Branch",
+                branch: 3,
+                transit: "16130",
+                address1: "2510 East Hastings Street",
+                address2: "Vancouver, BC  V5K 1Z3"
+            },
+            {
+                name: "Kitsilano Community Branch",
+                branch: 4,
+                transit: "16140",
+                address1: "3395 West Broadway",
+                address2: "Vancouver, BC  V6R 2B1"
+            },
+            {
+                name: "West Vancouver Community Branch",
+                branch: 5,
+                transit: "16150",
+                address1: "1402 Marine Drive",
+                address2: "West Vancouver, BC  V7T 1B7"
+            },
+            {
+                name: "North Burnaby Community Branch",
+                branch: 6,
+                transit: "16160",
+                address1: "4302 Hastings Street",
+                address2: "Burnaby, BC  V5C 2J9"
+            },
+            {
+                name: "Fraser Street Community Branch",
+                branch: 7,
+                transit: "16170",
+                address1: "6288 Fraser Street",
+                address2: "Vancouver, BC  V5W 3A1"
+            },
+            {
+                name: "Fairview Community Branch",
+                branch: 8,
+                transit: "16180",
+                address1: "501 West 10th Avenue",
+                address2: "Vancouver, BC  V5Z 1K9"
+            },
+            {
+                name: "Main Street Community Branch",
+                branch: 9,
+                transit: "16190",
+                address1: "4205 Main Street",
+                address2: "Vancouver, BC  V5V 3P8"
+            },
+            {
+                name: "Downtown Community Branch",
+                branch: 10,
+                transit: "16300",
+                address1: "898 West Pender Street",
+                address2: "Vancouver, BC  V6C 1J8"
+            },
+            {
+                name: "4th Ave Community Branch",
+                branch: 11,
+                transit: "16310",
+                address1: "2233 West 4th Avenue",
+                address2: "Vancouver, BC  V6K 1N9"
+            },
+            {
+                name: "Commercial Drive Community Branch",
+                branch: 12,
+                transit: "16320",
+                address1: "1675 Commercial Drive",
+                address2: "Vancouver, BC  V5L 3Y3"
+            },
+            {
+                name: "Collingwood Community Branch",
+                branch: 13,
+                transit: "16330",
+                address1: "3305 Kingsway",
+                address2: "Vancouver, BC  V5R 5K6"
+            },
+            {
+                name: "Marpole Community Branch",
+                branch: 14,
+                transit: "16340",
+                address1: "8615 Granville Street",
+                address2: "Vancouver, BC  V6P 5A2"
+            },
+            {
+                name: "Kerrisdale Community Branch",
+                branch: 15,
+                transit: "16350",
+                address1: "2380 West 41st Avenue",
+                address2: "Vancouver, BC  V6M 2A4"
+            },
+            {
+                name: "North Road Community Branch",
+                branch: 16,
+                transit: "16360",
+                address1: "3977 North Road",
+                address2: "Burnaby, BC  V3J 1S2"
+            },
+            {
+                name: "South Burnaby Community Branch",
+                branch: 17,
+                transit: "16370",
+                address1: "5064 Kingsway",
+                address2: "Burnaby, BC  V5H 2E7"
+            },
+            {
+                name: "Pinetree Community Branch",
+                branch: 18,
+                transit: "16380",
+                address1: "20 2991 Lougheed Hwy",
+                address2: "Coquitlam, BC  V3B 6J6"
+            },
+            {
+                name: "North Delta Community Branch",
+                branch: 19,
+                transit: "16390",
+                address1: "7211 120th Street",
+                address2: "Delta, BC  V4C 6P5"
+            },
+            {
+                name: "North Vancouver Community Branch",
+                branch: 21,
+                transit: "16410",
+                address1: "1290 Marine Drive",
+                address2: "North Vancouver, BC  V7P 1T2"
+            },
+            {
+                name: "Point Grey Community Branch",
+                branch: 22,
+                transit: "16420",
+                address1: "4545 West 10th Avenue",
+                address2: "Vancouver, BC  V6R 4N2"
+            },
+            {
+                name: "Langley Community Branch",
+                branch: 23,
+                transit: "16430",
+                address1: "100 20055 Willowbrook Dr",
+                address2: "Langley, BC  V2Y 2T5"
+            },
+            {
+                name: "Semiahmoo Community Branch",
+                branch: 25,
+                transit: "16450",
+                address1: "104 1790 152nd St",
+                address2: "Surrey, BC  V4A 7Z7"
+            },
+            {
+                name: "Richmond Community Branch",
+                branch: 26,
+                transit: "16460",
+                address1: "5900 No.3 Road",
+                address2: "Richmond, BC  V6X 3P7"
+            },
+            {
+                name: "Newton Community Branch",
+                branch: 27,
+                transit: "16470",
+                address1: "7555 King George Blvd",
+                address2: "Surrey, BC  V3W 5A8"
+            },
+            {
+                name: "Chinatown Community Branch",
+                branch: 28,
+                transit: "16480",
+                address1: "188 East Pender Street",
+                address2: "Vancouver, BC  V6A 1T3"
+            },
+            {
+                name: "Maple Ridge Community Branch",
+                branch: 29,
+                transit: "16490",
+                address1: "22824 Lougheed Hwy",
+                address2: "Maple Ridge, BC  V2X 2V6"
+            },
+            {
+                name: "Guildford Community Branch ",
+                branch: 30,
+                transit: "16500",
+                address1: "108 15175 101st Ave",
+                address2: "Surrey, BC  V3R 7Z1"
+            },
+            {
+                name: "Chilliwack Community Branch",
+                branch: 31,
+                transit: "16510",
+                address1: "45617 Luckakuck Way",
+                address2: "Chilliwack, BC  V2R 1A3"
+            },
+            {
+                name: "Surrey City Centre Community Branch",
+                branch: 32,
+                transit: "16520",
+                address1: "10293 King George Blvd",
+                address2: "Surrey, BC  V3T 2W6"
+            },
+            {
+                name: "Shaughnessy Station Community Branch",
+                branch: 33,
+                transit: "16530",
+                address1: "7100 2850 Shaughnessy St",
+                address2: "Port Coquitlam, BC  V3C 6K5"
+            },
+            {
+                name: "Abbotsford Community Branch",
+                branch: 34,
+                transit: "16540",
+                address1: "32675 South Fraser Way",
+                address2: "Abbotsford, BC  V2T 1X9"
+            },
+            {
+                name: "Station Square Community Branch",
+                branch: 35,
+                transit: "16550",
+                address1: "120A 6100 McKay Ave",
+                address2: "Burnaby, BC  V5H 4L6"
+            },
+            {
+                name: "Mission Community Branch",
+                branch: 36,
+                transit: "16560",
+                address1: "150 32555 London Ave",
+                address2: "Mission, BC  V2V 6M7"
+            },
+            {
+                name: "Oakridge Community Branch",
+                branch: 41,
+                transit: "07200",
+                address1: "5594 Cambie Street",
+                address2: "Vancouver, BC  V5Z 3Y5"
+            },
+            {
+                name: "Victoria Community Branch ",
+                branch: 42,
+                transit: "07220",
+                address1: "3075 Douglas Street",
+                address2: "Victoria, BC  V8T 4N3"
+            },
+            {
+                name: "Brentwood Community Branch",
+                branch: 43,
+                transit: "07230",
+                address1: "106 1901 Rosser Ave",
+                address2: "Burnaby, BC  V5C 6R6"
+            },
+            {
+                name: "Cedar Hills Community Branch",
+                branch: 44,
+                transit: "07240",
+                address1: "12820 96th Avenue",
+                address2: "Surrey, BC  V3V 6A8"
+            },
+            {
+                name: "Dunbar Community Branch",
+                branch: 45,
+                transit: "07250",
+                address1: "4445 Dunbar Street",
+                address2: "Vancouver, BC  V6S 2G4"
+            },
+            {
+                name: "Lynn Creek Community Branch",
+                branch: 46,
+                transit: "07260",
+                address1: "1370 Main Street",
+                address2: "North Vancouver, BC  V7J 1C6"
+            },
+            {
+                name: "West End Community Branch",
+                branch: 47,
+                transit: "07270",
+                address1: "1798 Robson Street",
+                address2: "Vancouver, BC  V6G 1C7"
+            },
+            {
+                name: "Westview Community Branch",
+                branch: 49,
+                transit: "07290",
+                address1: "712 2601 Westview Dr",
+                address2: "North Vancouver, BC  V7N 3X4"
+            },
+            {
+                name: "Pitt Meadows Community Branch",
+                branch: 50,
+                transit: "15400",
+                address1: "750 - 19800 Lougheed Highway",
+                address2: "Pitt Meadows, BC  V3Y 2W1"
+            },
+            {
+                name: "Maillardville Community Branch",
+                branch: 51,
+                transit: "15410",
+                address1: "101-969 Brunette Ave",
+                address2: "Coquitlam, BC  V3K 4L6"
+            },
+            {
+                name: "Port Moody Community Branch",
+                branch: 52,
+                transit: "15420",
+                address1: "5 - 121 Brew Street",
+                address2: "Port Moody, BC  V3H 0E2"
+            },
+            {
+                name: "North Side Community Branch",
+                branch: 53,
+                transit: "15430",
+                address1: "130 - 2325 Ottawa Street",
+                address2: "Port Coquitlam, BC  V3B 8A4"
+            },
+            {
+                name: "Walnut Grove Community Branch",
+                branch: 54,
+                transit: "15440",
+                address1: "E103 - 20159 88th Avenue",
+                address2: "Langley BC,  V1M 0A4"
+            },
+            {
+                name: "Sardis Community Branch (now Chilliwack/Branch 31)",
+                branch: 55,
+                transit: "15450",
+                address1: "45617 Luckakuck Way",
+                address2: "Chilliwack, BC  V2R 1A3"
+            },
+            {
+                name: "South Slope Community Branch",
+                branch: 56,
+                transit: "15460",
+                address1: "7384 Market Crossing",
+                address2: "Burnaby, BC  V5J 0A2"
+            },
+            {
+                name: "Lynn Valley Community Branch",
+                branch: 57,
+                transit: "15470",
+                address1: "101 - 1233 Lynn Valley Road",
+                address2: "North Vancouver, BC  V7J 2A1"
+            },
+            {
+                name: "Tsawwassen Community Branch",
+                branch: 58,
+                transit: "15480",
+                address1: "Unit D - 1215 56 Street",
+                address2: "Delta, BC  V4L 2A6"
+            },
+            {
+                name: "Royal Oak Community Branch",
+                branch: 59,
+                transit: "03210",
+                address1: "6632 Royal Oak Avenue",
+                address2: "Burnaby, BC  V5H 3P6"
+            },
+            {
+                name: "Waterfront Community Branch (now Downtown/Branch 10)",
+                branch: 60,
+                transit: "3020 ??",
+                address1: "898 West Pender Street",
+                address2: "Vancouver, BC  V6C 1J8"
+            },
+            {
+                name: "New Westminster Community Branch",
+                branch: 61,
+                transit: "23220",
+                address1: "511 Sixth Street",
+                address2: "New Westminster, BC  V3L 3B9"
+            },
+            {
+                name: "Saanich Community Branch (now Victoria/Branch 42)",
+                branch: 62,
+                transit: "23230",
+                address1: "3075 Douglas Street",
+                address2: "Victoria, BC  V8T 4N3"
+            },
+            {
+                name: "Telus Community Branch",
+                branch: 63,
+                transit: "03250",
+                address1: "6th floor, 3777 Kingsway",
+                address2: "Burnaby, BC  V5H 3Z7"
+            },
+            {
+                name: "Johnston Heights Community Branch (now Guildford/Branch 30)",
+                branch: 64,
+                transit: "23240",
+                address1: "108 15175 101st Ave",
+                address2: "Surrey, BC  V3R 7Z1"
+            },
+            {
+                name: "Blanshard Street Community Branch",
+                branch: 67,
+                transit: "02710",
+                address1: "1001 Blanshard Street",
+                address2: "Victoria, BC  V8W 2H4"
+            },
+            {
+                name: "Mount Tolmie Community Branch",
+                branch: 68,
+                transit: "02720",
+                address1: "100-1590 Cedar Hill Cross Road",
+                address2: "Victoria, BC  V8P 2P5"
+            },
+            {
+                name: "Langford Community Branch",
+                branch: 69,
+                transit: "02730",
+                address1: "100 - 800 Kelly Road",
+                address2: "Victoria, BC  V9B 5T6"
+            },
+            {
+                name: "Morgan Creek Community Branch",
+                branch: 70,
+                transit: "15490",
+                address1: "H120 - 15795 Croydon Drive",
+                address2: "Surrey, BC  V3S 2L6"
+            },
+            {
+                name: "Squamish Savings - Chieftain Centre",
+                branch: 81,
+                transit: "12110",
+                address1: "1325 Pemberton Drive",
+                address2: "Squamish, BC  V8B 0J8"
+            },
+            {
+                name: "Blundell Centre community branch",
+                branch: 88,
+                transit: "12180",
+                address1: "Unit 130 - 6020 Blundell Road",
+                address2: "Richmond BC  V7C 1H8"
+            }
+        ];
+
+        function UpdateLocation(i) {
+            $('#name').html(branches[i].name);
+            $('#address1').html(branches[i].address1.replace(/  /g, '&nbsp;&nbsp;'));
+            $('#address2').html(branches[i].address2.replace(/  /g, '&nbsp;&nbsp;'));
+        }
+
+        $(document).ready(function() {
+            $transit = $('#transit');
+            $branch = $('#branch');
+
+            $branch.keyup(function(e) {
+                $transit.val('');
+                $('#location-inner *').text('');
+                for(var i in branches) {
+                    if(branches[i].branch == parseInt($branch.val())) {
+                        $transit.val(branches[i].transit);
+                        UpdateLocation(i);
+                        break;
+                    }
+                }
+            });
+
+            $transit.keyup(function(e) {
+                $branch.val('');
+                $('#location-inner *').text('');
+                for(var i in branches) {
+                    if(branches[i].transit == $transit.val()) {
+                        $branch.val(branches[i].branch);
+                        UpdateLocation(i);
+                        break;
+                    }
+                }
+            });
+        });
+    </script>
 </head>
 <body>
-	<table>
-		<tr>
-			<td>Branch</td>
-			<td></td>
-			<td>Transit</td>
-		</tr>
-		<tr>
-			<td><input type="text" id="branch" /></td>
-			<td class="arrow">&harr;</td>
-			<td><input type="text" id="transit" /></td>
-		</tr>
-	</table>
-	<div id="location-outter">
-		<div id="location-inner">
-			<h2 id="name"></h2>
-			<span id="address1"></span>
-			<span id="address2"></span>
-		</div>
-	</div>
+<table>
+    <tr>
+        <td>Branch</td>
+        <td></td>
+        <td>Transit</td>
+    </tr>
+    <tr>
+        <td><input type="text" id="branch"/></td>
+        <td class="arrow">&harr;</td>
+        <td><input type="text" id="transit"/></td>
+    </tr>
+</table>
+<div id="location-outter">
+    <div id="location-inner">
+        <h2 id="name"></h2>
+        <span id="address1"></span>
+        <span id="address2"></span>
+    </div>
+</div>
 
-	<p class="contact"><a href="https://github.com/mnpenner/branch2transit">Edit on GitHub</a></p>
+<a href="https://github.com/mnpenner/branch2transit" class="github-corner" aria-label="View source on GitHub">
+    <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
 
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-        ga('create', 'UA-3494141-23', 'auto');
-        ga('send', 'pageview');
-    </script>
+    ga('create', 'UA-3494141-23', 'auto');
+    ga('send', 'pageview');
+</script>
 </body>
 </html>
